@@ -220,7 +220,7 @@ def run(protocol: protocol_api.ProtocolContext):
         ## Thermocycler
         discord_message(f"Thermocycler in PCR start RUN take off Enzyme")
         tc_mod.close_lid()
-        tc_mod.set_lid_temperature(100)
+        tc_mod.set_lid_temperature(90)
         tc_mod.set_block_temperature(
             temperature=94,
             hold_time_seconds=30,
@@ -266,7 +266,7 @@ def run(protocol: protocol_api.ProtocolContext):
         discord_message(f"Thermocycler in Assembly start RUN remove Enzyme")
         ## Thermocycler
         tc_mod.close_lid()
-        tc_mod.set_lid_temperature(100)
+        tc_mod.set_lid_temperature(90)
 
         ### DpnI
         tc_mod.set_block_temperature(
