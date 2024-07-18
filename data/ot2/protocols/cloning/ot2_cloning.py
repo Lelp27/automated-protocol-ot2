@@ -220,7 +220,7 @@ def run(protocol: protocol_api.ProtocolContext):
         ## Thermocycler
         discord_message(f"Thermocycler in PCR start RUN take off Enzyme")
         tc_mod.close_lid()
-        tc_mod.set_lid_temperature(90)
+        tc_mod.set_lid_temperature(94)
         tc_mod.set_block_temperature(
             temperature=94,
             hold_time_seconds=30,
@@ -248,7 +248,11 @@ def run(protocol: protocol_api.ProtocolContext):
             block_max_volume=final_volume
         )
         tc_mod.deactivate_lid()
-        tc_mod.set_block_temperature(8)
+        tc_mod.set_block_temperature(
+            temperature = 8,
+            hold_time_minutes=2,
+            block_max_volume=final_volume
+            )
         tc_mod.open_lid()
 
     # Second Reaction
@@ -266,7 +270,7 @@ def run(protocol: protocol_api.ProtocolContext):
         discord_message(f"Thermocycler in Assembly start RUN remove Enzyme")
         ## Thermocycler
         tc_mod.close_lid()
-        tc_mod.set_lid_temperature(90)
+        tc_mod.set_lid_temperature(80)
 
         ### DpnI
         tc_mod.set_block_temperature(
@@ -294,7 +298,11 @@ def run(protocol: protocol_api.ProtocolContext):
 
             if current_tmp <= 8:
                 tc_mod.deactivate_lid()
-                tc_mod.set_block_temperature(8)
+                tc_mod.set_block_temperature(
+                    temperature = 8,
+                    hold_time_minutes=2,
+                    block_max_volume=final_volume
+                    )
                 tc_mod.open_lid()
                 break
 
@@ -369,7 +377,11 @@ def run(protocol: protocol_api.ProtocolContext):
             hold_time_seconds=90,
             block_max_volume=reaction_mix_vol + CP_cell_volume
         )
-        tc_mod.set_block_temperature(8)
+        tc_mod.set_block_temperature(
+            temperature = 8,
+            hold_time_minutes=2,
+            block_max_volume=final_volume
+            )
         tc_mod.open_lid()
 
         src = find_materials_well("LB", "DW").bottom(z=3)
@@ -379,7 +391,7 @@ def run(protocol: protocol_api.ProtocolContext):
         p300.transfer(60, src, dest,
                     new_tip="always", touch_tip=False, disposal_volume=5,
                     blow_out=False, trash=not debug)
-        protocol.delay(seconds=30)
+        #protocol.delay(seconds=30)
         #end_time = time.time()
 
         # Duration time in 8 degree
